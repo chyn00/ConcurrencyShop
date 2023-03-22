@@ -1,11 +1,27 @@
 server:
-  port: '8092'
+  port: '9999'
+  servlet:
+    context-path: /sample
+
 spring:
   h2:
     console:
       enabled: 'true'
   datasource:
     username: sa
-    url: jdbc:h2:mem:user?allowMultiQueries=true;
+    url: jdbc:h2:mem:member?allowMultiQueries=true;
     driverClassName: org.h2.Driver
     password: ''
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+  api:
+    version: v1
+
+#  logging.level:
+#    org.hibernate.SQL: debug
