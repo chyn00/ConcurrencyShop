@@ -1,2 +1,2 @@
-# MVP
-JPA MVP
+# Smpale Project
+JPA Sample Project
