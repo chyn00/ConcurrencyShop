@@ -1,6 +1,6 @@
 package com.example.initialProject.account.service;
 
-import com.example.initialProject.account.domain.Member;
+import com.example.initialProject.account.model.domain.Member;
 import com.example.initialProject.account.repository.MemberRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;

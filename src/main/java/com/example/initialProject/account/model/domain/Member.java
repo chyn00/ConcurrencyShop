@@ -1,4 +1,4 @@
-package com.example.initialProject.account.domain;
+package com.example.initialProject.account.model.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

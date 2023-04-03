@@ -1,4 +1,4 @@
-package com.example.initialProject.account.dto.response;
+package com.example.initialProject.account.model.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;

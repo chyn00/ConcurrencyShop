@@ -1,9 +1,9 @@
 package com.example.initialProject.account.controller;
 
 
-import com.example.initialProject.account.domain.Member;
-import com.example.initialProject.account.dto.response.CreateMemberResponse;
-import com.example.initialProject.account.dto.response.FindMembersResponse;
+import com.example.initialProject.account.model.domain.Member;
+import com.example.initialProject.account.model.dto.response.CreateMemberResponse;
+import com.example.initialProject.account.model.dto.response.FindMembersResponse;
 import com.example.initialProject.account.service.MemberService;
 import com.example.initialProject.util.ObjectConvertUtil;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class MemberApiController {
 
     /**
      * 단일 회원가입
-     * */
+     */
     @PostMapping("/member")
     public CreateMemberResponse saveMember(@RequestBody Member member) {
 

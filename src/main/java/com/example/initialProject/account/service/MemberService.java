@@ -1,7 +1,9 @@
 package com.example.initialProject.account.service;
 
-import com.example.initialProject.account.domain.Member;
+import com.example.initialProject.account.model.domain.Member;
 import com.example.initialProject.account.repository.MemberRepository;
+import com.example.initialProject.exception.filter.constant.ExceptionCodeEnum;
+import com.example.initialProject.exception.filter.model.common.ExceptionObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+
     /**
      * 회원 가입
      */
@@ -25,8 +28,8 @@ public class MemberService {
     }
 
     /**
-    * 전체 회원 조회
-    * */
+     * 전체 회원 조회
+     */
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
@@ -34,12 +37,11 @@ public class MemberService {
 
     /**
      * 중복 회원 검증
-     * */
+     */
     private void validateDuplicateMember(Member member) {
         List<Member> findMembers = memberRepository.findByName(member.getName());
         if (!findMembers.isEmpty()) {
-            //공통처리 예정
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
+            throw new ExceptionObject(ExceptionCodeEnum.DuplicatedMemberException);
         }
     }
 }
