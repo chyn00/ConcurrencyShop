@@ -33,7 +33,7 @@ public class MemberService {
 
 
     /**
-     * 중복 회원 검증(동시성 고민)
+     * 중복 회원 검증
      * */
     private void validateDuplicateMember(Member member) {
         List<Member> findMembers = memberRepository.findByName(member.getName());
