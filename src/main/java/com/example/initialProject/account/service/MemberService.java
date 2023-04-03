@@ -25,24 +25,21 @@ public class MemberService {
     }
 
     /**
-     * 중복 회원 검증(동시성 고민) - 보통 CI가 절대적인 값이 되긴함.
-     * */
-    private void validateDuplicateMember(Member member) {
-        List<Member> findMembers = memberRepository.findByName(member.getName());
-        if (!findMembers.isEmpty()) {
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
-        }
-    }
-
-    /**
     * 전체 회원 조회
     * */
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
 
-    public Member findOne(Long memberId) {
-        return memberRepository.findOne(memberId);
-    }
 
+    /**
+     * 중복 회원 검증(동시성 고민)
+     * */
+    private void validateDuplicateMember(Member member) {
+        List<Member> findMembers = memberRepository.findByName(member.getName());
+        if (!findMembers.isEmpty()) {
+            //공통처리 예정
+            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        }
+    }
 }

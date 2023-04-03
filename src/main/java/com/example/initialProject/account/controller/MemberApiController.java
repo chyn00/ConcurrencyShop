@@ -2,13 +2,14 @@ package com.example.initialProject.account.controller;
 
 
 import com.example.initialProject.account.domain.Member;
-import com.example.initialProject.account.dto.MemberDto;
+import com.example.initialProject.account.dto.response.CreateMemberResponse;
+import com.example.initialProject.account.dto.response.FindMembersResponse;
 import com.example.initialProject.account.service.MemberService;
+import com.example.initialProject.util.ObjectConvertUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,35 +19,24 @@ public class MemberApiController {
     private final MemberService memberService;
 
     /**
-     * 회원가입은 단일로 이루어진다.
-     * V1은 Prefix예정
-     * 공통 Response는 진행예정
-     * 공통 Exception도 진행예정
+     * 단일 회원가입
      * */
     @PostMapping("/member")
-    public Object saveMemberV1(@RequestBody Object name) {
+    public CreateMemberResponse saveMember(@RequestBody Member member) {
 
-        Member member = new Member();
-        member.setName(name.toString());
         Long memberId = memberService.join(member);
 
-        return memberId + "is memberId for Join";
+        return ObjectConvertUtil.toDto(memberId, CreateMemberResponse.class);
     }
 
 
     /**
-     * 회원 모두 조회
-     * 당연히, 회원조회가 Admin이아닌데, 나가면 안되지만 샘플작성중
+     * 회원 모두 조회(이름만)
      */
     @GetMapping("/members")
-    public List<MemberDto> membersV1() {
+    public List<FindMembersResponse> members() {
 
         List<Member> findMembers = memberService.findMembers();
-        //엔티티 -> DTO 변환
-        List<MemberDto> collect = findMembers.stream()
-                .map(m -> new MemberDto(m.getName()))
-                .collect(Collectors.toList());
-
-        return collect;
+        return ObjectConvertUtil.listToListDto(findMembers, FindMembersResponse.class);
     }
 }
