@@ -1,2 +1,2 @@
 # Smpale Project
-JPA Sample Project
+JPA Commerce Sample Project
