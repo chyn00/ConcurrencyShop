@@ -11,7 +11,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-public class ExceptionFilter extends OncePerRequestFilter {
+public class ExceptionResponseFilter extends OncePerRequestFilter {
     private static final String CONTEXT_TYPE = "application/json;charset=UTF-8";
 
     @Override

@@ -1,10 +1,11 @@
 package com.example.initialProject.account.model.dto.response;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
-@Builder
 @Getter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class CreateMemberResponse {
 
     private Long memberId;
