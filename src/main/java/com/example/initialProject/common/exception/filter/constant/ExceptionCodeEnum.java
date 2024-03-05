@@ -1,4 +1,4 @@
-package com.example.initialProject.exception.filter.constant;
+package com.example.initialProject.common.exception.filter.constant;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

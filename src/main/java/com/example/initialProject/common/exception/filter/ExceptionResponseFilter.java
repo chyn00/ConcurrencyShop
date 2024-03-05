@@ -1,7 +1,7 @@
-package com.example.initialProject.exception.filter;
+package com.example.initialProject.common.exception.filter;
 
-import com.example.initialProject.exception.filter.model.common.ExceptionObject;
-import com.example.initialProject.exception.filter.model.response.ExceptionJsonResponse;
+import com.example.initialProject.common.exception.filter.model.common.ExceptionObject;
+import com.example.initialProject.common.exception.filter.model.response.ExceptionJsonResponse;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

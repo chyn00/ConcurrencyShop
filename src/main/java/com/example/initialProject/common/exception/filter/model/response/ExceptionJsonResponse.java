@@ -1,4 +1,4 @@
-package com.example.initialProject.exception.filter.model.response;
+package com.example.initialProject.common.exception.filter.model.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;

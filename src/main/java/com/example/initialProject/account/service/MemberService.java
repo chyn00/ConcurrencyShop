@@ -2,8 +2,8 @@ package com.example.initialProject.account.service;
 
 import com.example.initialProject.account.model.domain.Member;
 import com.example.initialProject.account.repository.MemberRepository;
-import com.example.initialProject.exception.filter.constant.ExceptionCodeEnum;
-import com.example.initialProject.exception.filter.model.common.ExceptionObject;
+import com.example.initialProject.common.exception.filter.constant.ExceptionCodeEnum;
+import com.example.initialProject.common.exception.filter.model.common.ExceptionObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

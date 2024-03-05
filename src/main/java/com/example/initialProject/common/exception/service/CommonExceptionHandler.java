@@ -1,8 +1,8 @@
-package com.example.initialProject.exception.service;
+package com.example.initialProject.common.exception.service;
 
 
-import com.example.initialProject.exception.filter.model.common.ExceptionObject;
-import com.example.initialProject.exception.filter.model.response.ExceptionJsonResponse;
+import com.example.initialProject.common.exception.filter.model.common.ExceptionObject;
+import com.example.initialProject.common.exception.filter.model.response.ExceptionJsonResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,6 @@
-package com.example.initialProject.exception.filter.model.common;
+package com.example.initialProject.common.exception.filter.model.common;
 
-import com.example.initialProject.exception.filter.constant.ExceptionCodeEnum;
+import com.example.initialProject.common.exception.filter.constant.ExceptionCodeEnum;
 import lombok.Getter;
 import org.springframework.core.NestedRuntimeException;
 import org.springframework.http.HttpStatus;
