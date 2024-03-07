@@ -1,6 +1,6 @@
 package com.example.initialProject.member.model.domain;
 
-import com.example.initialProject.order.domain.Order;
+import com.example.initialProject.order.domain.Orders;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,7 +22,7 @@ public class Member {
     private String name;
 
     //1(Member) : N(Orders) -> 나는 1개고, order는 여러개다.
-    @OneToMany(mappedBy = "order")
-    List<Order> orders = new ArrayList<>();
+    @OneToMany(mappedBy = "member")// 1 : N 연관관계의 주인이 member이다.
+    List<Orders> orders = new ArrayList<>();
 
 }
