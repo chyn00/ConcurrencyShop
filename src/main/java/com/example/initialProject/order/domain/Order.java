@@ -1,9 +1,6 @@
 package com.example.initialProject.order.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -16,4 +13,8 @@ public class Order {
     @GeneratedValue
     @Column(name = "item_id")
     private Long id;
+
+    //N(Order) : 1(Member) -> 나는 여러개고, Member는 1개다.
+    @ManyToOne
+    Order orders;
 }

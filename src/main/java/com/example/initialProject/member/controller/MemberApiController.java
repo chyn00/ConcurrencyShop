@@ -1,8 +1,8 @@
-package com.example.initialProject.account.controller;
+package com.example.initialProject.member.controller;
 
 
-import com.example.initialProject.account.model.domain.Member;
-import com.example.initialProject.account.service.MemberService;
+import com.example.initialProject.member.model.domain.Member;
+import com.example.initialProject.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

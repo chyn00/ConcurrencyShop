@@ -1,4 +1,4 @@
-package com.example.initialProject.account.model.dto.response;
+package com.example.initialProject.member.model.dto.response;
 
 import lombok.*;
 

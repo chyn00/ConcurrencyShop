@@ -1,18 +1,15 @@
-package com.example.initialProject.account.model.domain;
+package com.example.initialProject.member.model.dto.response;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-@Entity
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Member {
+public class FindMembersResponse {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "member_id")
+    @JsonIgnore
     private Long id;
 
     private String name;

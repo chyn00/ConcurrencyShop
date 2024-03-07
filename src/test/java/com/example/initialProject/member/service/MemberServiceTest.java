@@ -1,7 +1,7 @@
-package com.example.initialProject.account.service;
+package com.example.initialProject.member.service;
 
-import com.example.initialProject.account.model.domain.Member;
-import com.example.initialProject.account.repository.MemberRepository;
+import com.example.initialProject.member.model.domain.Member;
+import com.example.initialProject.member.repository.MemberRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
