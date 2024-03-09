@@ -15,7 +15,7 @@ public class Orders {// Order는 자바 예약어이기 때문에, orders로 주
     @Column(name = "item_id")
     private Long id;
 
-    //N(Order) : 1(Member) -> 나는 여러개고, Member는 1개다.
+    //N(Order) : 1(Member) -> 나(주문)는 여러개고, Member는 1개다.
     @ManyToOne
     Member member;
 }
