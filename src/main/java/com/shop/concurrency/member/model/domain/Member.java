@@ -10,9 +10,8 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @Builder
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Member extends BaseEntity {
 
