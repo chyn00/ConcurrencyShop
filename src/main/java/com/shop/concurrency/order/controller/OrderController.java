@@ -20,7 +20,7 @@ public class OrderController {
      * Shop 회원의 Item 주문(회원의 상품 구매)
      */
     @PostMapping("/orders/items/{itemId}")
-    public boolean makeItemOrdersByMember(@PathVariable("itemId") Long itemId,@RequestBody Member member) {
+    public boolean makeItemOrdersByMember(@PathVariable("itemId") String itemId,@RequestBody Member member) {
 
         return orderService.orderItemsByMember(itemId, member);
     }
