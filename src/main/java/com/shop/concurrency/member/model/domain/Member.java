@@ -2,6 +2,7 @@ package com.shop.concurrency.member.model.domain;
 
 import com.shop.concurrency.order.domain.Orders;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.Order;
 import lombok.*;
 
 import java.util.ArrayList;

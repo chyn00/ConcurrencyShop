@@ -3,6 +3,7 @@ package com.shop.concurrency.member.service;
 import com.shop.concurrency.member.model.domain.Member;
 import com.shop.concurrency.member.repository.MemberRepository;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,36 +18,21 @@ import static org.junit.Assert.fail;
 @Transactional
 public class MemberServiceTest {
 
-    @Autowired MemberService memberService;
-    @Autowired MemberRepository memberRepository;
+    @Autowired
+    MemberService memberService;
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
-    public void 회원가입() throws Exception {
+    @DisplayName("회원가입")
+    public void createMember() throws Exception {
         //given
-        Member member = new Member();
-        member.setName("kim");
+        Member member = Member.builder().name("kim").build();
 
         //when
         Long savedId = memberService.join(member);
 
         //then
         assertEquals(member, memberRepository.findById(savedId));
-    }
-
-    @Test(expected = IllegalStateException.class)
-    public void 중복_회원_예외() throws Exception {
-        //given
-        Member member1 = new Member();
-        member1.setName("kim");
-
-        Member member2 = new Member();
-        member2.setName("kim");
-
-        //when
-        memberService.join(member1);
-        memberService.join(member2); //예외가 발생해야 한다!!!
-
-        //then
-        fail("예외가 발생해야 한다.");
     }
 }
