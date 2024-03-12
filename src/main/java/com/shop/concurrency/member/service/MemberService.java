@@ -44,4 +44,5 @@ public class MemberService {
             throw new ExceptionObject(ExceptionCodeEnum.DuplicatedMemberException);
         }
     }
+
 }
