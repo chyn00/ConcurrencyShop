@@ -1,4 +1,4 @@
-package com.shop.concurrency.common.exception.handler;
+package com.shop.concurrency.common.exception.service;
 
 
 import com.shop.concurrency.common.exception.filter.model.common.ExceptionObject;

@@ -1,6 +1,5 @@
 package com.shop.concurrency.member.model.domain;
 
-import com.shop.concurrency.common.model.BaseEntity;
 import com.shop.concurrency.order.domain.Orders;
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,7 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Member extends BaseEntity {
+public class Member {
 
     @Id
     @GeneratedValue

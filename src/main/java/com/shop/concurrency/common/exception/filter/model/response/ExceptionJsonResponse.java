@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Builder;
 import lombok.Getter;
 
-@Getter
 @Builder
+@Getter
 public class ExceptionJsonResponse {
     @JsonIgnore
     private final ObjectMapper objectMapper = new ObjectMapper();

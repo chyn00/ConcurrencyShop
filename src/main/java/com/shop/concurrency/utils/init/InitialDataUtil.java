@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class InitialDataUtil {
+
     @PostConstruct
     public void createData(){
         System.out.println("Member Data가 생성되었습니다.");
