@@ -2,13 +2,13 @@ package com.shop.concurrency.member.service;
 
 import com.shop.concurrency.common.exception.filter.constant.ExceptionCodeEnum;
 import com.shop.concurrency.common.exception.filter.model.common.ExceptionObject;
-import com.shop.concurrency.member.repository.MemberRepository;
 import com.shop.concurrency.member.model.domain.Member;
+import com.shop.concurrency.member.repository.MemberRepository;
+import com.shop.concurrency.order.domain.Orders;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -43,5 +43,13 @@ public class MemberService {
         if (!findMembers.isEmpty()) {
             throw new ExceptionObject(ExceptionCodeEnum.DuplicatedMemberException);
         }
+    }
+
+    public boolean createOrder(Member member, Orders order) {
+        Member memberForUpdate = memberRepository.findById(member.getId());
+        memberForUpdate.getOrders().add(order);
+        memberRepository.save(memberForUpdate);
+
+        return true;
     }
 }
