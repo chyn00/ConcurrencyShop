@@ -11,12 +11,12 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    public void makeItem(int quantity){
-        Item item= Item.builder().quantity(10).build();
+    public void makeItemWithCodeAndQuantity(long itemCode, int quantity){
+        Item item= Item.builder().itemCode(itemCode).quantity(quantity).build();
         itemRepository.save(item);
     }
 
-    public void decreaseOneItemQuantity(Long itemId) {
+    public void decreaseItemQuantityMinusOne(Long itemId) {
         Item item = itemRepository.findById(itemId);
         item.decreaseItemQuantity(1);
 

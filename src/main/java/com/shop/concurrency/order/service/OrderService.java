@@ -23,7 +23,7 @@ public class OrderService {
         Orders order = Orders.builder().build();
         if(member.getOrders() == null ){
             memberService.createOrder(member, order);
-            itemService.decreaseOneItemQuantity(itemId);
+            itemService.decreaseItemQuantityMinusOne(itemId);
         }
         return true;
     }
