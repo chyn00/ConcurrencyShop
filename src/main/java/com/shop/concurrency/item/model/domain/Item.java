@@ -21,6 +21,8 @@ public class Item {
     @Column(name = "item_id")
     private Long id;
 
+    private Long itemCode;
+
     // 수량
     private int quantity;
 
