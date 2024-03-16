@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Integer> {
 
-    Item save(Item item);
+    Item saveAndFlush(Item item);
+
     Item findById(Long id);
 }

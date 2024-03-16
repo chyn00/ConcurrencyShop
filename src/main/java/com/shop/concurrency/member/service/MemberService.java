@@ -23,7 +23,7 @@ public class MemberService {
     public Long join(Member member) {
 
         validateDuplicateMember(member); //중복 회원 검증
-        memberRepository.save(member);
+        memberRepository.saveAndFlush(member);
         return member.getId();
     }
 
@@ -32,6 +32,13 @@ public class MemberService {
      */
     public List<Member> findMembers() {
         return memberRepository.findAll();
+    }
+
+    /**
+     * 단일 회원 조회
+     */
+    public Member findMember(Long id) {
+        return memberRepository.findById(id);
     }
 
 
@@ -45,10 +52,13 @@ public class MemberService {
         }
     }
 
+    /**
+     * 회원의 주문 생성
+     */
     public boolean createOrder(Member member, Orders order) {
         Member memberForUpdate = memberRepository.findById(member.getId());
         memberForUpdate.getOrders().add(order);
-        memberRepository.save(memberForUpdate);
+        memberRepository.saveAndFlush(memberForUpdate);
 
         return true;
     }

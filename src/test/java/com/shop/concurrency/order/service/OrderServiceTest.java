@@ -1,23 +1,22 @@
 package com.shop.concurrency.order.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.shop.concurrency.item.service.ItemService;
 import com.shop.concurrency.member.model.domain.Member;
 import com.shop.concurrency.member.service.MemberService;
-import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
-@Transactional
 class OrderServiceTest {
+
+    private final int threadCount = 100;
 
     @Autowired
     OrderService orderService;
@@ -30,8 +29,45 @@ class OrderServiceTest {
 
     @Test
     @DisplayName("orderItemTest")
-    void orderItemsByMember() {
+    void orderItemByMember() {
         Member member = Member.builder().id(1L).name("kim").build();
         orderService.orderItemsByMember(1L, member);
+
+        System.out.println("재고 일반 접근 1개 - : " + itemService.getItemQuantity(1L));
+    }
+
+    @Test
+    @DisplayName("orderItemsTest")
+    void orderItems() {
+        Member member = Member.builder().id(1L).name("kim").build();
+        for (int i = 0; i < threadCount; i++) {
+            orderService.orderItemsByMember(1L, member);
+        }
+        System.out.println("재고 일반 접근 100개 -: " + itemService.getItemQuantity(1L));
+    }
+
+    @Test
+    @DisplayName("concurrencyOrderItemTest")
+    void concurrencyOrderItemTest() throws InterruptedException {
+        Member member= memberService.findMember(1L);
+        final Member finalMember = member;
+
+        ExecutorService executorService = Executors.newFixedThreadPool(6);
+        CountDownLatch latch = new CountDownLatch(threadCount);
+
+        for (int i = 0; i < threadCount; i++) {
+            executorService.submit(() -> {
+                try {
+                    orderService.orderItemsByMember(1L, finalMember);
+                } finally {
+                    latch.countDown();
+                }
+            });
+        }
+
+        //병렬 쓰레드를 기다리고 출력하도록
+        latch.await();
+
+        assertEquals(900, itemService.getItemQuantity(1L));
     }
 }
