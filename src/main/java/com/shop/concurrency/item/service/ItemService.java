@@ -11,16 +11,23 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    public void makeItemWithCodeAndQuantity(long itemCode, int quantity){
-        Item item= Item.builder().itemCode(itemCode).quantity(quantity).build();
+    public void makeItem(int quantity){
+        Item item= Item.builder().quantity(quantity).build();
         itemRepository.save(item);
     }
 
-    public void decreaseItemQuantityMinusOne(Long itemId) {
+    public void decreaseOneItemQuantity(Long itemId, int quantity) {
         Item item = itemRepository.findById(itemId);
-        item.decreaseItemQuantity(1);
-
+        //zero인 경우 종료
+        if (item.isZero()) {
+            return;
+        }
+        item.decreaseItemQuantity(quantity);
         // 수정인 경우 수정 반영
-        itemRepository.save(item);
+        itemRepository.saveAndFlush(item);
+    }
+
+    public int getItemQuantity(Long id){
+        return itemRepository.findById(id).getQuantity();
     }
 }

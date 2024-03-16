@@ -1,19 +1,15 @@
 package com.shop.concurrency.member.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.shop.concurrency.member.model.domain.Member;
 import com.shop.concurrency.member.repository.MemberRepository;
-import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
 public class MemberServiceTest {
