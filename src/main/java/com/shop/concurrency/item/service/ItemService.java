@@ -2,6 +2,7 @@ package com.shop.concurrency.item.service;
 
 import com.shop.concurrency.item.model.domain.Item;
 import com.shop.concurrency.item.repository.ItemRepository;
+import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ public class ItemService {
     private final ItemRepository itemRepository;
 
     public void makeItem(int quantity){
-        Item item= Item.builder().quantity(quantity).build();
+        Item item= Item.builder().itemCode(Math.round(Math.random()*10000000)).quantity(quantity).build();
         itemRepository.save(item);
     }
 

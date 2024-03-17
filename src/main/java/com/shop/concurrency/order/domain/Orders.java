@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class Orders {// Order는 자바 예약어이기 때문에, orders로 주문을 표시해준다.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "item_id")
+    @Column(name = "orders_id")
     private Long id;
 
     //N(Order) : 1(Member) -> 나(주문)는 여러개고, Member는 1개다.
