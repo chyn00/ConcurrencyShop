@@ -1,6 +1,7 @@
 package com.shop.concurrency.order.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import com.shop.concurrency.item.service.ItemService;
 import com.shop.concurrency.member.model.domain.Member;
@@ -31,7 +32,7 @@ class OrderServiceTest {
     @DisplayName("orderItemTest")
     void orderItemByMember() {
         Member member = Member.builder().id(1L).name("kim").build();
-        orderService.orderItemsByMember(1L, member);
+        orderService.synchronizedOrderItemsByMember(1L, member);
 
         System.out.println("재고 일반 접근 1개 - : " + itemService.getItemQuantity(1L));
     }
@@ -41,14 +42,14 @@ class OrderServiceTest {
     void orderItems() {
         Member member = Member.builder().id(1L).name("kim").build();
         for (int i = 0; i < threadCount; i++) {
-            orderService.orderItemsByMember(1L, member);
+            orderService.synchronizedOrderItemsByMember(1L, member);
         }
         System.out.println("재고 일반 접근 100개 -: " + itemService.getItemQuantity(1L));
     }
 
     @Test
-    @DisplayName("concurrencyOrderItemTest")
-    void concurrencyOrderItemTest() throws InterruptedException {
+    @DisplayName("concurrencySynchronizedOrderItemTest")
+    void concurrencySynchronizedOrderItemTest() throws InterruptedException {
         Member member= memberService.findMember(1L);
         final Member finalMember = member;
 
@@ -58,7 +59,7 @@ class OrderServiceTest {
         for (int i = 0; i < threadCount; i++) {
             executorService.submit(() -> {
                 try {
-                    orderService.orderItemsByMember(1L, finalMember);
+                    orderService.synchronizedOrderItemsByMember(1L, finalMember);
                 } finally {
                     latch.countDown();
                 }
@@ -69,5 +70,31 @@ class OrderServiceTest {
         latch.await();
 
         assertEquals(900, itemService.getItemQuantity(1L));
+    }
+
+
+    @Test
+    @DisplayName("concurrencyTransactionalOrderItemTest")
+    void concurrencyTransactionalOrderItemTest() throws InterruptedException {
+        Member member= memberService.findMember(1L);
+        final Member finalMember = member;
+
+        ExecutorService executorService = Executors.newFixedThreadPool(6);
+        CountDownLatch latch = new CountDownLatch(threadCount);
+
+        for (int i = 0; i < threadCount; i++) {
+            executorService.submit(() -> {
+                try {
+                    orderService.transactionalOrderItemsByMember(1L, finalMember);
+                } finally {
+                    latch.countDown();
+                }
+            });
+        }
+
+        //병렬 쓰레드를 기다리고 출력하도록
+        latch.await();
+
+        assertNotEquals(900, itemService.getItemQuantity(1L));
     }
 }

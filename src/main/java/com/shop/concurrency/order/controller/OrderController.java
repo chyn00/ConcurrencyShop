@@ -22,7 +22,7 @@ public class OrderController {
     @PostMapping("/orders/items/{itemId}")
     public boolean makeItemOrdersByMember(@PathVariable("itemId") Long itemId,@RequestBody Member member) {
 
-        return orderService.orderItemsByMember(itemId, member);
+        return orderService.synchronizedOrderItemsByMember(itemId, member);
     }
 
 }
