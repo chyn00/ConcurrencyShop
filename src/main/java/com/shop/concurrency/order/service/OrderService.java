@@ -20,9 +20,8 @@ public class OrderService {
     public synchronized boolean orderItemsByMember(Long itemId, Member member) {
 
         Orders order = Orders.builder().member(member).build();
-        memberService.createOrder(member, order);
+        memberService.addOrder(member, order);
         orderRepository.saveAndFlush(order);
-
         itemService.decreaseOneItemQuantity(itemId, 1);
 
         return true;

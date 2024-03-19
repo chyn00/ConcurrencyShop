@@ -55,7 +55,7 @@ public class MemberService {
     /**
      * 회원의 주문 생성
      */
-    public boolean createOrder(Member member, Orders order) {
+    public boolean addOrder(Member member, Orders order) {
         Member memberForUpdate = memberRepository.findById(member.getId());
         memberForUpdate.getOrders().add(order);
         memberRepository.saveAndFlush(memberForUpdate);
