@@ -17,25 +17,34 @@ public class OrderService {
     private final ItemService itemService;
     private final OrderRepository orderRepository;
 
-    public synchronized boolean synchronizedOrderItemsByMember(Long itemId, Member member) {
+    public synchronized boolean synchronizedOrderItemsByMember(Long itemId, Long memberId) {
 
-        Orders order = Orders.builder().member(member).build();
-        memberService.addOrder(member, order);
-        orderRepository.saveAndFlush(order);
-        itemService.decreaseOneItemQuantity(itemId, 1);
+        Member member = memberService.findMember(memberId);
 
-        return true;
+        if(this.saveOrder(member)){
+            itemService.decreaseOneItemQuantity(itemId, 1);
+            return true;
+        }else{
+            return false;
+        }
     }
 
-
     @Transactional
-    public boolean transactionalOrderItemsByMember(Long itemId, Member member) {
+    public boolean transactionalOrderItemsByMember(Long itemId, Long memberId) {
 
+        Member member = memberService.findMember(memberId);
+
+        if(this.saveOrder(member)){
+            itemService.decreaseOneItemQuantity(itemId, 1);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean saveOrder(Member member){
         Orders order = Orders.builder().member(member).build();
-        memberService.addOrder(member, order);
         orderRepository.saveAndFlush(order);
-        itemService.decreaseOneItemQuantity(itemId, 1);
-
         return true;
     }
 }

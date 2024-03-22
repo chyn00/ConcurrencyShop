@@ -22,11 +22,5 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    @JsonIgnore
     private String name;
-
-    @JsonBackReference
-    @OneToMany(mappedBy = "member")// 1 : N 연관관계의 주인이 member이다.
-    final List<Orders> orders = new ArrayList<>(); //1(Member) : N(Orders) -> 나는 1개고, order는 여러개다.
-
 }

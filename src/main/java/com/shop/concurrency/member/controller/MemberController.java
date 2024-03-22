@@ -1,14 +1,15 @@
 package com.shop.concurrency.member.controller;
 
 
-import com.shop.concurrency.member.model.dto.response.FindMembersResponse;
-import com.shop.concurrency.member.service.MemberService;
 import com.shop.concurrency.member.model.domain.Member;
-import java.util.stream.Collectors;
+import com.shop.concurrency.member.model.dto.response.MemberRequest;
+import com.shop.concurrency.member.model.dto.response.MembersResponse;
+import com.shop.concurrency.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,8 +22,11 @@ public class MemberController {
      * 단일 회원가입
      */
     @PostMapping("/member")
-    public Long saveMember(@RequestBody Member member) {
+    public Long saveMember(@RequestBody MemberRequest memberRequest) {
 
+        Member member = Member.builder()
+                .name(memberRequest.getName())
+                .build();
         return memberService.join(member);
     }
 
@@ -31,16 +35,15 @@ public class MemberController {
      * 회원 모두 조회(이름, 주문)
      */
     @GetMapping("/members")
-    public List<FindMembersResponse> members() {
+    public List<MembersResponse> members() {
         List<Member> members = memberService.findMembers();
 
         return members.stream().map(
-                member ->
-                    FindMembersResponse
-                        .builder()
-                        .name(member.getName())
-                        .orders(member.getOrders())
-                        .build())
-            .collect(Collectors.toList());
+                        member ->
+                                MembersResponse
+                                        .builder()
+                                        .name(member.getName())
+                                        .build())
+                .collect(Collectors.toList());
     }
 }

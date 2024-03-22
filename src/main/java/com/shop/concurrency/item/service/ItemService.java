@@ -13,7 +13,7 @@ public class ItemService {
     private final ItemRepository itemRepository;
 
     public void makeItem(int quantity){
-        Item item= Item.builder().itemCode(Math.round(Math.random()*10000000)).quantity(quantity).build();
+        Item item= Item.builder().itemCode(Math.round(Math.random()*100000)).quantity(quantity).build();
         itemRepository.save(item);
     }
 
