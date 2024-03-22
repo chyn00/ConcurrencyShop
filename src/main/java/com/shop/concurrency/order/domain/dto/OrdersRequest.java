@@ -1,4 +1,4 @@
-package com.shop.concurrency.member.model.dto.response;
+package com.shop.concurrency.order.domain.dto;
 
 import lombok.*;
 
@@ -6,7 +6,9 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class CreateMemberResponse {
+public class OrdersRequest {
 
     private Long memberId;
+
+    private Long itemId;
 }

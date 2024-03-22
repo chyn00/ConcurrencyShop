@@ -17,14 +17,34 @@ public class OrderService {
     private final ItemService itemService;
     private final OrderRepository orderRepository;
 
-    @Transactional
-    public boolean orderItemsByMember(Long itemId, Member member) {
+    public synchronized boolean synchronizedOrderItemsByMember(Long itemId, Long memberId) {
 
-        Orders order = Orders.builder().build();
-        if(member.getOrders() == null ){
-            memberService.createOrder(member, order);
-            itemService.decreaseItemQuantityMinusOne(itemId);
+        Member member = memberService.findMember(memberId);
+
+        if(this.saveOrder(member)){
+            itemService.decreaseOneItemQuantity(itemId, 1);
+            return true;
+        }else{
+            return false;
         }
+    }
+
+    @Transactional
+    public boolean transactionalOrderItemsByMember(Long itemId, Long memberId) {
+
+        Member member = memberService.findMember(memberId);
+
+        if(this.saveOrder(member)){
+            itemService.decreaseOneItemQuantity(itemId, 1);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean saveOrder(Member member){
+        Orders order = Orders.builder().member(member).build();
+        orderRepository.saveAndFlush(order);
         return true;
     }
 }

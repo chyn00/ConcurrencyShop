@@ -5,10 +5,12 @@ import com.shop.concurrency.common.exception.filter.model.common.ExceptionObject
 import com.shop.concurrency.member.model.domain.Member;
 import com.shop.concurrency.member.repository.MemberRepository;
 import com.shop.concurrency.order.domain.Orders;
-import java.util.List;
+import com.shop.concurrency.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,7 +25,7 @@ public class MemberService {
     public Long join(Member member) {
 
         validateDuplicateMember(member); //중복 회원 검증
-        memberRepository.save(member);
+        memberRepository.saveAndFlush(member);
         return member.getId();
     }
 
@@ -32,6 +34,13 @@ public class MemberService {
      */
     public List<Member> findMembers() {
         return memberRepository.findAll();
+    }
+
+    /**
+     * 단일 회원 조회
+     */
+    public Member findMember(Long id) {
+        return memberRepository.findById(id);
     }
 
 
@@ -45,11 +54,4 @@ public class MemberService {
         }
     }
 
-    public boolean createOrder(Member member, Orders order) {
-        Member memberForUpdate = memberRepository.findById(member.getId());
-        memberForUpdate.getOrders().add(order);
-        memberRepository.save(memberForUpdate);
-
-        return true;
-    }
 }
