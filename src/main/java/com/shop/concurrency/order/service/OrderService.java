@@ -1,5 +1,6 @@
 package com.shop.concurrency.order.service;
 
+import com.shop.concurrency.item.service.ItemAtomicService;
 import com.shop.concurrency.item.service.ItemService;
 import com.shop.concurrency.member.model.domain.Member;
 import com.shop.concurrency.member.service.MemberService;
@@ -15,6 +16,7 @@ public class OrderService {
 
     private final MemberService memberService;
     private final ItemService itemService;
+    private final ItemAtomicService itemAtomicService;
     private final OrderRepository orderRepository;
 
     public synchronized boolean synchronizedOrderItemsByMember(Long itemId, Long memberId) {
@@ -36,6 +38,20 @@ public class OrderService {
 
         if(this.saveOrder(member)){
             itemService.decreaseOneItemQuantity(itemId, 1);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    //itemService -> 직접
+    @Transactional
+    public boolean transactionalOrderItemsUsingAtomicByMember(Long itemId, Long memberId) {
+
+        Member member = memberService.findMember(memberId);
+
+        if(this.saveOrder(member)){
+            itemAtomicService.decreaseOneItemAtomicQuantity(itemId);
             return true;
         }else{
             return false;

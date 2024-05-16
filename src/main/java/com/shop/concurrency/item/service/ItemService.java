@@ -2,7 +2,6 @@ package com.shop.concurrency.item.service;
 
 import com.shop.concurrency.item.model.domain.Item;
 import com.shop.concurrency.item.repository.ItemRepository;
-import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
