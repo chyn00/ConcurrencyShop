@@ -1,7 +1,9 @@
 package com.shop.concurrency.item.service;
 
 import com.shop.concurrency.item.model.domain.Item;
+import com.shop.concurrency.item.model.dto.ItemResponse;
 import com.shop.concurrency.item.repository.ItemRepository;
+import com.shop.concurrency.item.repository.mapper.ItemMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ItemService {
 
     private final ItemRepository itemRepository;
+    private final ItemMapper itemMapper;
 
     public void makeItem(int quantity){
         Item item= Item.builder().itemCode(Math.round(Math.random()*100000)).quantity(quantity).build();
@@ -32,6 +35,9 @@ public class ItemService {
         return itemRepository.findById(id).getQuantity();
     }
 
+    public int getItemQuantitUsingMybatis(Long id) {
+        return itemMapper.getItemById(id).getQuantity();
+    }
     public void decreaseItemStockWithPessimisticLock(Long itemId, int quantity) {
         Item item = itemRepository.findByIdWithPessimisticLock(itemId);
 
@@ -41,5 +47,16 @@ public class ItemService {
         item.decreaseItemQuantity(quantity);
         // 수정인 경우 수정 반영
         itemRepository.saveAndFlush(item);
+    }
+
+    @Transactional
+    public void decreaseItemStockWithMybatisPessimisticLock(Long itemId, int quantity) {
+        ItemResponse item = itemMapper.getItemById(itemId);
+
+        if(item.isZero()) {
+            return;
+        }
+        item.setQuantity(item.getQuantity() - quantity);
+        itemMapper.updateItem(item);
     }
 }
