@@ -88,6 +88,30 @@ public class OrderService {
         }
     }
 
+    public boolean transactionalOrderUsingOptimisticLockAndMybatis(Long itemId, Long memberId) {
+
+        Member member = memberService.findMember(memberId);
+
+        if(this.saveOrder(member)) {
+            versionedItemService.decreaseItemStockWithMybatisOptimisticLock(itemId, 1);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean transactionalOrderUsingPessimisticLockAndMybatis(Long itemId, Long memberId) {
+
+        Member member = memberService.findMember(memberId);
+
+        if(this.saveOrder(member)) {
+            itemService.decreaseItemStockWithMybatisPessimisticLock(itemId, 1);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public boolean saveOrder(Member member){
         Orders order = Orders.builder().member(member).build();
         orderRepository.saveAndFlush(order);

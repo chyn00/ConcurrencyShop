@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shop.concurrency.item.repository.mapper.VersionedItemMapper">
+    <select id="getItemByIdAndVersion" resultType="com.shop.concurrency.item.model.dto.VersionedItemResponse">
+        SELECT *
+        FROM versioned_item
+        WHERE item_id = #{itemId}
+    </select>
+
+    <update id="updateItem" parameterType="com.shop.concurrency.item.model.dto.VersionedItemRequest">
+        UPDATE versioned_item
+        SET quantity = #{quantity}, version = #{version} + 1
+        WHERE item_id = #{itemId}
+        AND version = #{version}
+    </update>
+</mapper>

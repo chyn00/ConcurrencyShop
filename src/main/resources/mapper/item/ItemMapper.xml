@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shop.concurrency.item.repository.mapper.ItemMapper">
+    <select id="getItemById" resultType="com.shop.concurrency.item.model.dto.ItemResponse">
+        SELECT *
+        FROM item
+        WHERE item_id = #{itemId}
+        FOR UPDATE
+    </select>
+
+    <update id="updateItem">
+        UPDATE item
+        SET quantity = #{quantity}
+        WHERE item_id = #{itemId}
+    </update>
+</mapper>
